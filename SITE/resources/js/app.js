@@ -1,5 +1,7 @@
 const apiKey = "32c6cbe8714746799fbcb0063eddf0d6";
 const blogContainer = document.getElementById("blog-container");
+const searchField = document.getElementById("search-input");
+const searchBtn = document.getElementById("search-button");
 
 async function fetchRandomNews() {
   try {
@@ -12,6 +14,36 @@ async function fetchRandomNews() {
     return [];
   }
 }
+
+searchBtn.addEventListener("click", () => {
+  const searchValue = searchField.value;
+  if (searchValue) {
+    fetch(
+      `https://newsapi.org/v2/everything?pageSize=10&q=${searchValue}&apiKey=${apiKey}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        displayBlogs(data.articles);
+      });
+  }
+});
+
+searchField.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    const searchValue = searchField.value;
+    if (searchValue) {
+      fetch(
+        `https://newsapi.org/v2/everything?pageSize=10&q=${searchValue}&apiKey=${apiKey}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          displayBlogs(data.articles);
+        });
+    }
+  } else {
+    fetchRandomNews().then((data) => displayBlogs(data));
+  }
+});
 
 function displayBlogs(articles) {
   blogContainer.innerHTML = "";
@@ -42,6 +74,9 @@ function displayBlogs(articles) {
     blogCard.appendChild(img);
     blogCard.appendChild(title);
     blogCard.appendChild(description);
+    blogCard.addEventListener("click", () => {
+      window.open(article.url, "_blank");
+    });
 
     blogContainer.appendChild(blogCard);
   });

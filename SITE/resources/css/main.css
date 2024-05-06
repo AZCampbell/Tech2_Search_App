@@ -8,16 +8,23 @@
 body {
   position: relative;
 }
-nav {
-  background-color: #2d4c50;
-  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.3rem 0;
+}
+/* Global CSS  */
+
+.obj-width {
+  max-width: 1200px;
+  margin: auto;
+}
+
+nav {
+  background-color: #2d4c50;
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
 }
 .navbar .logo {
   color: white;
@@ -43,4 +50,7 @@ nav {
   cursor: pointer;
   margin-left: 10px;
   margin-right: 10px;
+}
+#blog-container {
+  padding: 3rem 0px;
 }
